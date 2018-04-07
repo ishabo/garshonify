@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "noEmitHelpers": true,
+    "declaration": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": false,
+    "target": "esnext",
+    "outDir": "./dist/",
+    "baseUrl": "./",
+    "typeRoots": [
+      "./src/typings",
+      "node_modules/@types"
+    ],
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
+  },
+  "include": [
+    "./src/",
+    "./typings/"
+  ]
+}

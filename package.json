@@ -1,0 +1,54 @@
+{
+  "name": "garshonify",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "files": [
+    "dist",
+    "index.js",
+    "yarn.lock",
+    "package-lock.json"
+  ],
+  "main": "./dist/garshonify.js",
+  "types": "./dist/garshonify.d.ts",
+  "author": "Issa Shabo <issashabo@gmail.com>",
+  "scripts": {
+    "precommit": "yarn compile && yarn lint && yarn test:unit",
+    "start": "yarn compile -- -w",
+    "test:unit": "jest tests",
+    "test:watch": "jest --watchAll",
+    "lint": "tslint src/*.ts src/*.tsx src/**/*.ts src/**/*.tsx --fix",
+    "compile": "yarn clear:dist && tsc",
+    "clear": "yarn clear:dist & rimraf node_modules",
+    "clear:dist": "rimraf dist",
+    "types": "cp src/**/*.d.ts dist/",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "husky": "0.14.3",
+    "jest": "22.4",
+    "tslint": "5.5.0",
+    "tslint-config-airbnb": "^5.8.0",
+    "tslint-fix": "0.1.0",
+    "typescript": "2.8.1",
+    "ts-jest": "^22.4.2"
+  },
+  "dependencies": {},
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "publishConfig": {
+    "registry": "http://packages.dns.ad.zopa.com/artifactory/api/npm/npm-libs-local"
+  }
+}

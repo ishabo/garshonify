@@ -1,0 +1,22 @@
+# OSX
+#
+.DS_Store
+
+# node.js
+#
+node_modules/
+npm-debug.log
+
+
+# VisualStudio Code
+jsconfig.json
+
+# Webstorm
+.idea
+
+# Yarn
+yarn-error.log
+.yarnclean
+
+# VSCode
+.history
