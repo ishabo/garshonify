@@ -8,11 +8,9 @@ describe('garshonify', () => {
       const garshoni = 'ابجد هوز حطي كلمن سعفص قرشت';
       const garshoniByCombo = 'ابجد هوز حطي كلمن سعفص قرشت';
 
-      expect(garshonify({ sentence, langConfig }))
-        .toEqual(garshoni);
+      expect(garshonify({ sentence, langConfig })).toEqual(garshoni);
 
-      expect(garshonify({ sentence, langConfig, byCombo: true }))
-        .toEqual(garshoniByCombo);
+      expect(garshonify({ sentence, langConfig, byCombo: true })).toEqual(garshoniByCombo);
     });
 
     it('converts arabic to syriac letters', () => {
@@ -30,11 +28,9 @@ describe('garshonify', () => {
       const garshoni = 'اِنُا رُحِم ا̱نُا لاِمُا ديلي̱';
       const garshoniByCombo = 'إِنُا رُحِم-نُا لإِمُا ديل';
 
-      expect(garshonify({ sentence, langConfig }))
-        .toEqual(garshoni);
+      expect(garshonify({ sentence, langConfig })).toEqual(garshoni);
 
-      expect(garshonify({ sentence, langConfig, byCombo: true }))
-        .toEqual(garshoniByCombo);
+      expect(garshonify({ sentence, langConfig, byCombo: true })).toEqual(garshoniByCombo);
     });
 
     it('converts combos and cleanup', () => {
@@ -45,9 +41,19 @@ describe('garshonify', () => {
         'ܘܰܐܠܴܗܳܐ ܐܻܝܬ݂ܱܘܗ̄ܝ ܗ̄ܘܳܐ ܗܽܘ ܡܶܠܬ݂ܴܐ';
 
       const garshoni =
-        'ڤرٍشٍيث إٍيثَو وُا مِلثُا وهٌو مِلثُا' +
-        'إٍيثَو وُا لوُث آلُهُا ' +
-        'وَالُهُا إٍيثَو وُا هٌو مِلثُا';
+        'ڤرٍشٍيث إٍيثَو وُا مِلثُا وهٌو مِلثُا' + 'إٍيثَو وُا لوُث آلُهُا ' + 'وَالُهُا إٍيثَو وُا هٌو مِلثُا';
+
+      const garshoniOptions = { sentence, langConfig, byCombo: true };
+      expect(garshonify(garshoniOptions)).toEqual(garshoni);
+    });
+  });
+
+  describe('When using special syriac chars', () => {
+    it('converts rish without dot', () => {
+      const langConfig = { source: 'clSyr', target: 'clAra' };
+
+      const sentence = 'ܗܶܢܽܘܢ ܓܰܒ̥ܖ̈ܶܐ';
+      const garshoni = 'هِنٌون جَڤرِا';
 
       const garshoniOptions = { sentence, langConfig, byCombo: true };
       expect(garshonify(garshoniOptions)).toEqual(garshoni);
@@ -58,7 +64,7 @@ describe('garshonify', () => {
     const customLangConfig = {
       byCombo: { sh: '$', ch: '£', th: '∂' },
       byChar: { s: '5', i: '1', e: '3', o: '0' },
-      cleanUp: { '-': ' ', _: ' ' },
+      cleanUp: { '-': ' ', _: ' ' }
     };
 
     it('replaces chars & cleans-up by default', () => {
@@ -67,7 +73,6 @@ describe('garshonify', () => {
 
       expect(garshonify(garshoniOptions)).toEqual('Th15 15 a t35t 0f char5');
     });
-
 
     it('replaces combos', () => {
       const sentence = 'This should change with combos';
