@@ -52,11 +52,16 @@ describe('garshonify', () => {
     it('converts rish without dot', () => {
       const langConfig = { source: 'clSyr', target: 'clAra' };
 
-      const sentence = 'ܗܶܢܽܘܢ ܓܰܒ̥ܖ̈ܶܐ';
-      const garshoni = 'هِنٌون جَڤرِا';
+      const multipleOptions = [
+        { sentence: 'ܐܺܝܬ̥ ܠܟ̥ܘܢ ܟܶܪ̈ܟܶܐ', garshoni: 'إٍيث لخون كِركِا' },
+        { sentence: 'ܗܶܢܽܘܢ ܓܰܒ̥ܖ̈ܶܐ', garshoni: 'هِنٌون جَڤرِا' },
+        { sentence: 'ܐܺܝܬ̥ ܠܗܶܝܢ ܡܰܠܦ̥ܳܢܺܝܬ̥ܳܐ ܛܳܒ̥ܬ̥ܳܐ', garshoni: 'إٍيث لهِين مَلفُنٍيثُا طُڤثُا' }
+      ];
 
-      const garshoniOptions = { sentence, langConfig, byCombo: true };
-      expect(garshonify(garshoniOptions)).toEqual(garshoni);
+      for (let { garshoni, sentence } of multipleOptions) {
+        const options = { sentence: sentence, langConfig, byCombo: true };
+        expect(garshonify(options)).toEqual(garshoni);
+      }
     });
   });
 

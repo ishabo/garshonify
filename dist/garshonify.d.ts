@@ -18,5 +18,5 @@ export interface ILangConfig {
     byCombo: IDictionary<string>;
     byChar: IDictionary<string>;
 }
-declare const garshonify: ({ sentence, langConfig, customLangConfig, byCombo }: IGarshonifyProps) => string;
-export default garshonify;
+declare const _default: ({ sentence, langConfig, customLangConfig, byCombo }: IGarshonifyProps) => string;
+export default _default;

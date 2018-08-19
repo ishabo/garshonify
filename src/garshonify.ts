@@ -10,11 +10,10 @@ export interface IDictionary<T extends number | string> {
 
 export interface IGarshonifyProps {
   sentence: string;
-  langConfig?: { source: TLangs, target: TLangs };
+  langConfig?: { source: TLangs; target: TLangs };
   customLangConfig?: ILangConfig;
   byCombo?: boolean;
 }
-
 
 export interface ILangConfig {
   cleanUp: IDictionary<string>;
@@ -28,50 +27,32 @@ const getLangConfig = (config: IGarshonifyProps['langConfig']) => {
   const langConfName = `${config['source']}-to-${config['target']}`;
   langConf = langConfig[langConfName];
 
-  if (langConf === void (0)) {
+  if (langConf === void 0) {
     throw new Error(`${langConfName} is not a valid lang config`);
   }
 
   return langConf;
 };
 
-const garshonify = ({ sentence, langConfig, customLangConfig, byCombo }: IGarshonifyProps) => {
-  const langConf = customLangConfig || getLangConfig(langConfig);
-
-  let transliteration = replaceChars(sentence, langConf.cleanUp);
-
-  if (!!byCombo) {
-    transliteration = replaceCharsByPatterns(transliteration, langConf.byCombo);
-  }
-
-  return replaceChars(transliteration, langConf.byChar);
-};
-
-const replaceChars = (chars: string, replacementObject: ILangConfig['byChar'] = {}) =>
-  chars.split('').map((char: string) => {
-    let newChar;
-    try {
-      if (replacementObject[char]) {
-        newChar = replacementObject[char];
-      } else {
-        newChar = char;
-      }
-    } catch (error) {
-      console.warn(error);
-      newChar = '';
-    }
-    return newChar;
-  }).join('');
-
-const replaceCharsByPatterns = (sentence: string, patterns: object) => {
-  let str: string;
+const replaceCharsByPatterns = (times: number) => (sentence: string, patterns: object) => {
   let modifiedSentence = sentence;
-
-  for (str of Object.keys(patterns)) {
-    modifiedSentence = modifiedSentence.replace(new RegExp(str, 'g'), patterns[str]);
-  }
+  [...Array(times)].forEach(() => {
+    for (const str of Object.keys(patterns)) {
+      modifiedSentence = modifiedSentence.replace(new RegExp(str, 'g'), patterns[str]);
+    }
+  });
 
   return modifiedSentence;
 };
 
-export default garshonify;
+export default ({ sentence, langConfig, customLangConfig, byCombo }: IGarshonifyProps) => {
+  const langConf = customLangConfig || getLangConfig(langConfig);
+
+  let transliteration = replaceCharsByPatterns(2)(sentence, langConf.cleanUp);
+
+  if (!!byCombo) {
+    transliteration = replaceCharsByPatterns(1)(transliteration, langConf.byCombo);
+  }
+
+  return replaceCharsByPatterns(1)(transliteration, langConf.byChar);
+};
